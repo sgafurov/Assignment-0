@@ -1,26 +1,32 @@
+const { fa } = require("faker/lib/locales");
+
 class MySolution {
   constructor() {
     this.flag = false; // this is optional to use;
   }
 
   binarySearch(nums, target) {
-    let found = false
-    
-    if(target===nums[nums.length/2]){
-      return found = true
-    } else if(target===nums[0]){
-      return found = true
-    } else if(target===nums[nums.length-1]){
-      return found = true
-    } else if(target<nums[nums.length/2]){
-      binarySearch(0,...nums.length/2, target)
+    let mid = Math.floor(nums.length/2)
+
+    if(nums.length===1){
+      if(target===nums[0]){
+        return true
+      }
     } else {
-      binarySearch(nums.length/2,...nums.length-1, target)
+      if(target===nums[mid]){
+        return true
+      } else if(nums[mid] > target){ //look at left half of array
+        let newArray = nums.slice(0, mid - 1 + 1)
+        return this.binarySearch(newArray, target)
+      } else if(nums[mid] < target){ //look at right half of array
+        let newArray = nums.slice(mid+1, nums.length+1)
+        return this.binarySearch(newArray, target)
+      }
     }
-
-    return found
-
+    return false
+    
   }
+
 }
 
 // Do not edit this line;
